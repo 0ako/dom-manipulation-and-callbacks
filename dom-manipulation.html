@@ -47,16 +47,15 @@
         btn.addEventListener('click', function (e) {
             console.log(e.target);
         });
-        
-        //
+       
         const buttons = document.querySelectorAll('button');
         buttons.forEach((button) => {
             button.addEventListener('click', () => {
                 alert(button.id);
             });
             button.addEventListener('click', function (e) {
-            e.target.style.background = 'blue';
-        });
+                e.target.style.background = 'blue';
+            });
         });
 
         
