@@ -1,0 +1,136 @@
+
+<!doctype html>
+<html>
+  <head>
+    <title>Console Demo</title>
+  </head>
+<body>
+  <h1>
+    DOM manipulation & callbacks notes
+  </h1>
+    <div id="container">
+        <!-- <div class="content">
+        This is the glorious text-content!
+        <button id="btn">CLICK ME BABY</button>
+        <button id="1">Click Me</button>
+        <button id="2">Click Me</button>
+        <button id="3">Click Me</button> -->
+    
+        <button id="item1">clickky</button>
+      </div>
+
+  <script>
+    // const container = document.querySelector('#container');
+    
+    // const p = document.createElement('p');
+    // container.appendChild(p);
+    // p.style.color = 'red';
+    // p.textContent = "Hey I'm red!";
+
+    // const h3 = document.createElement('h3');
+    // container.insertBefore(h3, p);
+    // h3.style.color = 'blue';
+    // h3.textContent = 'I\'m a blue h3!';
+
+    // const div = document.createElement('div');
+    // div.setAttribute('style', 'border: 1px solid black; background: pink')
+    // container.appendChild(div);
+
+    // const h12 = document.createElement('h1');
+    // h12.textContent = 'I\'m in a div';
+    // div.appendChild(h12);
+
+    // const p2 = document.createElement('p');
+    // p2.textContent = 'ME TOO!';
+    // div.appendChild(p2);
+
+    // const btn = document.querySelector('#btn');
+    // btn.addEventListener('click', function (e) {
+    //     console.log(e.target);
+    // });
+    
+    // //
+    // const buttons = document.querySelectorAll('button');
+    // buttons.forEach((button) => {
+    //     button.addEventListener('click', () => {
+    //         alert(button.id);
+    //     });
+    //     button.addEventListener('click', function (e) {
+    //     e.target.style.background = 'blue';
+    // });
+    // });
+
+    // CALLBACKS https://www.youtube.com/watch?v=Nau-iEEgEoM&ab_channel=AllThingsJavaScript%2CLLC
+
+    // let logCall = function() {
+    //   console.log("The function was called back.");
+    // };
+
+    // setTimeout(function() {
+    //   console.log("The setTimeout function called back an anonymous function")
+    // }, 3000)
+      
+    // let btn = document.querySelector("#item1");
+    // btn.addEventListener("click", function(e) {
+    //   console.log("button clicked")
+    // })    
+  
+    // This array consists of multiple objects. Each object has multiple values:
+    // a name, a score, a school. 
+    let students = [{name:"Mary",score:90,school:"East"},
+    {name:"James",score:100,school:"East"},
+    {name:"Steve",score:40,school:"East"},
+    {name:"Gabe",score:90,school:"West"},
+    {name:"Rachel",score:85,school:"East"},
+    {name:"Rochelle",score:95,school:"West"},
+    {name:"Lynette",score:75,school:"East"}];
+
+
+    // this function is a loop with 2 conditionals
+    // it runs a loop through the array, each object, containing 2 conditionals for each object: 
+    // if 'data' array's object's 'school' value == 'east',
+    // and if typeof 'callback' is a function
+    // then run 'callback' function on data[i] (the i\th object in array 'data')
+    let processStudents = function(data, callback) {
+      for (let i = 0; i < data.length; i++ ) {
+        if (data[i].school.toLowerCase() == "east") {
+          if (typeof callback == "function") {
+            callback(data[i]);
+          }
+        }
+      }
+    }
+
+    // this function console.logs students that have score > 60
+    processStudents(students, function(obj){ // why use an 'obj' in this function?
+      // because the callback (above) has the data passed in, so we need to grab that to work on it
+      if (obj.score > 60) {
+        console.log(obj.name + " passed.");
+      }
+    })
+
+    // to show how flexible this can be: this function computes the total of all the scores for "east"
+    // and counts how many students are in "east"
+    let determineTotal = function() {
+      let total = 0; 
+      let count = 0;
+
+      // we call processStudents with 'students' array in 'data' parameter, then 
+      // declare an anonymous function that adds up obj.score and increments 'count' variable.
+      // this anonymous function is called within processStudents as a callback, thus is 
+      // subject to the loop and conditions of processStudents. 
+      processStudents(students, function(obj) { // still use parameter obj to accept the object that is passed in
+        total = total + obj.score;
+        count++;
+        
+      });
+      
+      // after exiting the processStudents function (and its loops), we console.log results
+      console.log("Total score: " + total + " - Student count: " + count);
+    };
+
+    determineTotal();
+
+  </script>
+</body>
+</html>
